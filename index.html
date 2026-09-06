@@ -36,7 +36,7 @@ h2{font-size:16px;margin:18px 16px 10px}.scroll{display:flex;overflow:auto;gap:9
 <header><div class="brand"><div class="logo">$</div><div><b>CASH EARN</b><div class="muted">Reward center</div></div></div><button class="btn" style="width:auto" onclick="page('profile')">PROFILE</button></header>
 <div class="card balance"><label>WALLET BALANCE</label><div class="amount">$<span id="balance">0.00</span></div><div class="progress"><span id="bar"></span></div><div class="small">Claim becomes available at $1.00</div></div>
 <button class="claim" onclick="claim()">CLAIM</button>
-<div class="center small">Current rate: $<span id="rate">0.10</span> / second</div>
+<div class="center small">Current rate: $<span id="rate">0.1</span> / second</div>
 <div class="ad">ADVERTISEMENT</div>
 <h2>Upgrades</h2><div id="upgrades" class="scroll"></div>
 </section>
@@ -81,7 +81,7 @@ h2{font-size:16px;margin:18px 16px 10px}.scroll{display:flex;overflow:auto;gap:9
 
 <script>
 const U=[
-["Basic",0,.10,"Starting rate"],["Starter",5,.20,"2× earning speed"],["Silver",15,.30,"3× earning speed"],["Gold",35,.50,"5× earning speed"],
+["Basic",0,.1,"Starting rate"],["Starter",5,.20,"2× earning speed"],["Silver",15,.30,"3× earning speed"],["Gold",35,.50,"5× earning speed"],
 ["Platinum",75,.80,"8× earning speed"],["Diamond",150,1.20,"12× earning speed"],["Master",300,2,"20× earning speed"],["Ultra",600,3,"30× earning speed"],["Legend",1200,5,"50× earning speed"]
 ];
 let d=JSON.parse(localStorage.getItem("cashEarn")||"null");
