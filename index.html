@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cash Earn</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#05090d;color:#f5f7fa;font-family:Arial,sans-serif}
+button,input{font:inherit}.app{max-width:480px;margin:auto;min-height:100vh;background:#091017;padding-bottom:78px}
+header{padding:18px 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:10px;align-items:center}.logo{width:42px;height:42px;border-radius:13px;background:#00e69a;color:#00150e;display:grid;place-items:center;font-weight:900}
+.brand b{font-size:14px}.muted{font-size:10px;color:#71808d;margin-top:4px}
+.page{display:none}.page.active{display:block}.card{margin:12px 16px;padding:17px;background:#101922;border:1px solid #202d38;border-radius:18px}
+.balance{text-align:center}.balance label{font-size:9px;color:#71808d;letter-spacing:1px}.amount{font-size:40px;font-weight:900;margin:7px}.amount i{font-style:normal;color:#00e69a}
+.progress{height:7px;background:#1a2530;border-radius:10px;overflow:hidden;margin:12px}.progress span{display:block;height:100%;width:0;background:#00e69a}
+.claim{width:176px;height:176px;border-radius:50%;display:block;margin:22px auto;border:8px solid #153a30;background:#00df98;color:#00140d;font-weight:900;font-size:17px}.claim:active{transform:scale(.96)}
+.center{text-align:center}.small{font-size:9px;color:#71808d}.ad{height:82px;margin:15px 16px;border:1px dashed #263542;border-radius:15px;display:grid;place-items:center;color:#566572;font-size:9px}
+h2{font-size:16px;margin:18px 16px 10px}.scroll{display:flex;overflow:auto;gap:9px;padding:0 16px}.upgrade{min-width:170px;background:#101922;border:1px solid #202d38;border-radius:16px;padding:14px}.upgrade strong{font-size:12px}.rate{font-size:20px;font-weight:900;margin:9px 0}.rate small{font-size:9px;color:#71808d}.benefit{height:25px;color:#71808d;font-size:9px}
+.btn{width:100%;border:0;border-radius:9px;background:#00e69a;color:#00140d;padding:10px;font-size:9px;font-weight:900}.btn:disabled{opacity:.35}
+.task{margin:8px 16px;padding:13px;background:#101922;border:1px solid #202d38;border-radius:15px;display:flex;align-items:center;gap:10px}.task .icon{width:38px;height:38px;border-radius:10px;background:#16231f;color:#00e69a;display:grid;place-items:center;font-size:10px;font-weight:900}.task main{flex:1}.task b{font-size:10px}.task small{display:block;color:#00e69a;margin-top:4px}.task button{border:0;border-radius:9px;background:#00e69a;padding:9px;font-size:9px;font-weight:900}
+.profile{margin:10px 16px;padding:17px;background:#101922;border:1px solid #202d38;border-radius:18px}.user{display:flex;gap:11px;align-items:center}.avatar{width:52px;height:52px;border-radius:50%;background:#00e69a;color:#00140d;display:grid;place-items:center;font-weight:900}.wallet{margin-top:15px;padding:14px;background:#080e14;border:1px solid #202d38;border-radius:14px;display:flex;justify-content:space-between;align-items:center}.wallet small{color:#71808d}.wallet b{display:block;font-size:23px;margin-top:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 16px}.stat{padding:13px;background:#101922;border:1px solid #202d38;border-radius:14px}.stat small{color:#71808d;font-size:8px}.stat b{display:block;margin-top:5px}
+.menu{margin:10px 16px}.menu button{width:100%;display:flex;align-items:center;gap:10px;background:#101922;color:#fff;border:1px solid #202d38;border-radius:13px;padding:12px;margin:7px 0;text-align:left}.menu .mi{width:33px;height:33px;border-radius:9px;background:#16232d;color:#00e69a;display:grid;place-items:center}.menu span{flex:1;font-size:10px}.menu span small{display:block;color:#71808d;font-size:8px;margin-top:3px}
+.form{margin-top:12px}.form label{display:block;font-size:9px;color:#71808d;margin-bottom:5px}.form input{width:100%;padding:12px;background:#080e14;border:1px solid #293742;border-radius:9px;color:#fff;outline:0}
+.tx{margin:8px 16px;padding:12px;background:#101922;border:1px solid #202d38;border-radius:13px;display:flex;justify-content:space-between}.tx small{display:block;color:#71808d;font-size:8px;margin-top:3px}.plus{color:#00e69a}.minus{color:#ff6673}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:67px;background:#080d13;border-top:1px solid #202d38;display:grid;grid-template-columns:repeat(4,1fr);z-index:20}.nav button{border:0;background:none;color:#667482;font-size:8px}.nav button.active{color:#00e69a}.nav div{font-size:19px;margin-bottom:3px}
+.toast{position:fixed;bottom:82px;left:50%;transform:translate(-50%,15px);opacity:0;background:#18232d;border:1px solid #2b3946;padding:10px 14px;border-radius:10px;font-size:10px;transition:.2s;z-index:80}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:70}.modal.show{display:grid}.modalbox{width:290px;background:#101922;border:1px solid #2b3945;border-radius:20px;padding:22px;text-align:center}.check{width:64px;height:64px;margin:auto;border-radius:50%;background:#00e69a;color:#00140d;display:grid;place-items:center;font-size:34px;font-weight:900}
+.chart{height:140px;display:flex;align-items:end;gap:5px;padding:15px}.chart span{flex:1;background:#00e69a;border-radius:5px 5px 0 0;min-height:5px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<section id="home" class="page active">
+<header><div class="brand"><div class="logo">$</div><div><b>CASH EARN</b><div class="muted">Reward center</div></div></div><button class="btn" style="width:auto" onclick="page('profile')">PROFILE</button></header>
+<div class="card balance"><label>WALLET BALANCE</label><div class="amount">$<span id="balance">0.00</span></div><div class="progress"><span id="bar"></span></div><div class="small">Claim becomes available at $1.00</div></div>
+<button class="claim" onclick="claim()">CLAIM</button>
+<div class="center small">Current rate: $<span id="rate">0.10</span> / second</div>
+<div class="ad">ADVERTISEMENT</div>
+<h2>Upgrades</h2><div id="upgrades" class="scroll"></div>
+</section>
+
+<section id="tasks" class="page">
+<header><h2 style="margin:0">Tasks</h2></header>
+<div class="task"><div class="icon">TG</div><main><b>Join Telegram Channel</b><small>$0.20 reward</small></main><button onclick="telegram()" id="tg">JOIN</button></div>
+<div class="task"><div class="icon">AD</div><main><b>Watch Advertisement</b><small>$0.25 reward</small></main><button onclick="watchAd()" id="ad">WATCH</button></div>
+<div class="task"><div class="icon">DAY</div><main><b>Daily Check-in</b><small>$0.20 reward</small></main><button onclick="daily()" id="daily">CLAIM</button></div>
+<div class="task"><div class="icon">GO</div><main><b>Visit Sponsor</b><small>$0.15 reward</small></main><button onclick="sponsor()" id="sponsor">OPEN</button></div>
+<div class="ad">ADVERTISEMENT</div>
+</section>
+
+<section id="profile" class="page">
+<header><h2 style="margin:0">Profile</h2></header>
+<div class="profile"><div class="user"><div class="avatar">CE</div><div><b>CASH EARN USER</b><div class="muted">User ID: <span id="uid"></span></div></div></div>
+<div class="wallet"><div><small>WALLET</small><b>$<span id="pbal">0.00</span></b></div><button class="btn" style="width:auto" onclick="page('withdraw')">WITHDRAW</button></div></div>
+<div class="stats"><div class="stat"><small>TOTAL EARNING</small><b>$<span id="earned">0.00</span></b></div><div class="stat"><small>WITHDRAWN</small><b>$<span id="withdrawn">0.00</span></b></div><div class="stat"><small>RATE</small><b>$<span id="prate">0.10</span>/s</b></div><div class="stat"><small>CLAIMS</small><b id="claims">0</b></div></div>
+<div class="menu">
+<button onclick="page('transactions')"><div class="mi">≡</div><span><b>Transactions</b><small>Account history</small></span>›</button>
+<button onclick="page('gift')"><div class="mi">+</div><span><b>Gift Code</b><small>Redeem a code</small></span>›</button>
+<button onclick="page('tasks')"><div class="mi">✓</div><span><b>Tasks</b><small>Available rewards</small></span>›</button>
+<button onclick="telegram()"><div class="mi">TG</div><span><b>Telegram Channel</b><small>Open channel</small></span>›</button>
+</div>
+<h2>Total Earning</h2><div class="card"><div id="chart" class="chart"></div></div>
+</section>
+
+<section id="gift" class="page"><header><h2 style="margin:0">Gift Code</h2></header><div class="card"><b>Redeem Code</b><div class="muted">Enter a valid gift code.</div><div class="form"><input id="giftcode" placeholder="ENTER CODE"></div><button class="btn" style="margin-top:12px" onclick="redeem()">REDEEM</button></div></section>
+
+<section id="withdraw" class="page"><header><h2 style="margin:0">Withdraw</h2></header><div class="card"><div class="small">AVAILABLE BALANCE</div><div class="amount">$<span id="wbal">0.00</span></div>
+<div class="form"><label>AMOUNT</label><input id="wamount" type="number" placeholder="Minimum $50"></div>
+<div class="form"><label>UPI ID</label><input id="upi" placeholder="example@upi"></div>
+<div class="form"><label>MOBILE NUMBER</label><input id="mobile" inputmode="numeric" maxlength="10" placeholder="10 digit number"></div>
+<button class="btn" style="margin-top:14px" onclick="withdraw()">REQUEST WITHDRAWAL</button><div class="muted">Minimum withdrawal: $50</div></div></section>
+
+<section id="transactions" class="page"><header><h2 style="margin:0">Transactions</h2></header><div id="tx"></div></section>
+</div>
+
+<div class="nav"><button data-p="home" class="active" onclick="page('home')"><div>⌂</div>Home</button><button data-p="tasks" onclick="page('tasks')"><div>✓</div>Tasks</button><button data-p="transactions" onclick="page('transactions')"><div>≡</div>History</button><button data-p="profile" onclick="page('profile')"><div>○</div>Profile</button></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalbox"><div class="check">✓</div><h3>Withdrawal Request</h3><p class="muted">Your request has been recorded.</p><button class="btn" onclick="closeModal()">OK</button></div></div>
+
+<script>
+const U=[
+["Basic",0,.10,"Starting rate"],["Starter",5,.20,"2× earning speed"],["Silver",15,.30,"3× earning speed"],["Gold",35,.50,"5× earning speed"],
+["Platinum",75,.80,"8× earning speed"],["Diamond",150,1.20,"12× earning speed"],["Master",300,2,"20× earning speed"],["Ultra",600,3,"30× earning speed"],["Legend",1200,5,"50× earning speed"]
+];
+let d=JSON.parse(localStorage.getItem("cashEarn")||"null");
+if(!d)d={uid:"CE-"+Math.floor(100000+Math.random()*900000),bal:0,earned:0,withdrawn:0,claims:0,up:0,codes:[],tx:[],tg:false,ad:false,sp:false,daily:"",chart:[],last:Date.now()};
+function save(){localStorage.setItem("cashEarn",JSON.stringify(d))}
+function rate(){return U[d.up][2]}
+function fmt(n){return Number(n||0).toFixed(2)}
+function toast(x){let t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+function add(n,type){d.bal+=n;d.earned+=n;d.tx.unshift({type,amount:n,date:new Date().toLocaleString(),status:"Completed"});save();update()}
+function claim(){if(d.bal<1)return toast("You need $1.00 to claim");d.bal-=1;d.claims++;d.tx.unshift({type:"Claim",amount:-1,date:new Date().toLocaleString(),status:"Completed"});save();update();toast("$1.00 claimed")}
+function buy(i){if(i!==d.up+1)return toast(i<=d.up?"Already active":"Unlock previous upgrade first");if(d.bal<U[i][1])return toast("Not enough balance");d.bal-=U[i][1];d.up=i;d.tx.unshift({type:U[i][0]+" Upgrade",amount:-U[i][1],date:new Date().toLocaleString(),status:"Completed"});save();update();toast(U[i][0]+" activated")}
+function renderUpgrades(){document.getElementById("upgrades").innerHTML=U.map((u,i)=>`<div class="upgrade"><strong>${u[0]}</strong><div class="rate">$${fmt(u[2])}<small> / second</small></div><div class="benefit">${u[3]}</div><button class="btn" onclick="buy(${i})" ${i!==d.up+1?"disabled":""}>${i===d.up?"ACTIVE":i===d.up+1?"BUY $"+fmt(u[1]):"LOCKED"}</button></div>`).join("")}
+function telegram(){window.open("https://t.me/your_channel","_blank");if(!d.tg){d.tg=true;add(.2,"Telegram Task")}}
+function watchAd(){if(d.ad)return toast("Already completed");d.ad=true;add(.25,"Advertisement Task")}
+function daily(){let x=new Date().toISOString().slice(0,10);if(d.daily===x)return toast("Already claimed today");d.daily=x;add(.2,"Daily Check-in")}
+function sponsor(){if(d.sp)return toast("Already completed");d.sp=true;window.open("https://example.com","_blank");add(.15,"Sponsor Task")}
+function redeem(){let c=document.getElementById("giftcode").value.trim().toUpperCase(),codes={CASH1:1,CASH205:205};if(!codes[c])return toast("Invalid gift code");if(d.codes.includes(c))return toast("Code already used");d.codes.push(c);add(codes[c],"Gift Code");document.getElementById("giftcode").value=""}
+function withdraw(){let a=+document.getElementById("wamount").value,u=document.getElementById("upi").value.trim(),m=document.getElementById("mobile").value.trim();if(a<50)return toast("Minimum withdrawal is $50");if(a>d.bal)return toast("Insufficient balance");if(!u)return toast("Enter UPI ID");if(!/^[0-9]{10}$/.test(m))return toast("Enter valid mobile number");d.bal-=a;d.withdrawn+=a;d.tx.unshift({type:"Withdrawal Request",amount:-a,date:new Date().toLocaleString(),status:"Pending"});save();update();document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function renderTx(){document.getElementById("tx").innerHTML=d.tx.length?d.tx.slice(0,50).map(x=>`<div class="tx"><div><b>${x.type}</b><small>${x.date} • ${x.status}</small></div><b class="${x.amount>0?"plus":"minus"}">${x.amount>0?"+":"-"}$${fmt(Math.abs(x.amount))}</b></div>`).join(""):'<div class="card"><div class="muted">No transactions yet.</div></div>'}
+function chart(){let a=d.chart.slice(-18);if(!a.length)a=[0];let mx=Math.max(...a,1);document.getElementById("chart").innerHTML=a.map(v=>`<span style="height:${Math.max(5,v/mx*100)}%"></span>`).join("")}
+function update(){["balance","pbal","wbal"].forEach(id=>document.getElementById(id).textContent=fmt(d.bal));document.getElementById("earned").textContent=fmt(d.earned);document.getElementById("withdrawn").textContent=fmt(d.withdrawn);document.getElementById("claims").textContent=d.claims;document.getElementById("uid").textContent=d.uid;document.getElementById("rate").textContent=fmt(rate());document.getElementById("prate").textContent=fmt(rate());document.getElementById("bar").style.width=Math.min(100,d.bal*100)+"%";renderUpgrades();renderTx();chart();document.getElementById("tg").textContent=d.tg?"DONE":"JOIN";document.getElementById("ad").textContent=d.ad?"DONE":"WATCH";document.getElementById("sponsor").textContent=d.sp?"DONE":"OPEN";document.getElementById("tg").disabled=d.tg;document.getElementById("ad").disabled=d.ad;document.getElementById("sponsor").disabled=d.sp;let today=new Date().toISOString().slice(0,10);document.getElementById("daily").disabled=d.daily===today;document.getElementById("daily").textContent=d.daily===today?"DONE":"CLAIM"}
+function page(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.p===id));scrollTo(0,0)}
+setInterval(()=>{let now=Date.now(),sec=(now-d.last)/1000;d.last=now;let inc=rate()*sec;d.bal+=inc;d.earned+=inc;d.chart.push(d.earned);if(d.chart.length>40)d.chart.shift();save();update()},1000);
+update();
+</script>
+</body>
+</html>
